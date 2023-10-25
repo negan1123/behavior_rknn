@@ -149,23 +149,6 @@ int DetectorDriver::detect()
 			{
 				beh.phone = true;
 			}
-			// ret = BBDetector->input(BodyImg);
-			// if(0 != ret)
-			// {
-			// 	cout<<"BodyBehaviorDetector intput fail! ret="<<ret<<endl;
-			// 	return ret;
-			// }
-			// ret = BBDetector->detect();
-			// if(0 != ret)
-			// {
-			// 	cout<<"BodyBehaviorDetector detect fail! ret="<<ret<<endl;
-			// 	return ret;
-			// }
-			// ret = BBDetector->getBodyBehavior();
-			// if(ret == 1)
-			// {
-			// 	beh.phone = true;
-			// }
 		}
 
 	}
@@ -191,19 +174,19 @@ int DetectorDriver::getBehaviorInt()
 	}
 	if(beh.yawn)
 	{
-		ret = (1 << 1);
+		ret += (1 << 1);
 	}
 	if(beh.smoke)
 	{
-		ret = (1 << 2);
+		ret += (1 << 2);
 	}
 	if(beh.phone)
 	{
-		ret = (1 << 3);
+		ret += (1 << 3);
 	}
 	if(beh.blockCamera)
 	{
-		ret = (1 << 4);
+		ret += (1 << 4);
 	}
 	return ret;
 }
@@ -217,6 +200,8 @@ cv::Mat DetectorDriver::getLabelImage(bool showLabelImage)
 
 	int drawTxtIndex = 0;
 	int txtX,txtY;
+	txtX = 0;
+	txtY = 0 + 30;
 	if (showLabelImage)
 	{	
 		if (beh.blockCamera)
@@ -233,8 +218,6 @@ cv::Mat DetectorDriver::getLabelImage(bool showLabelImage)
 		// 绘制图像
 		cv::rectangle(img, head, cv::Scalar(0,0,255), 1, 1, 0); // 绘制头像框
 		cv::rectangle(img, body, cv::Scalar(0,255,0), 1, 1, 0); // 绘制身体框
-		txtX = 0;
-		txtY = 0 + 30;
 		if (beh.closeEyes)
 		{
 			//在图像上绘制文字
@@ -244,43 +227,45 @@ cv::Mat DetectorDriver::getLabelImage(bool showLabelImage)
 						2.0, 
 						cv::Scalar(0,0,255),
 						2);
-			return img;
+			drawTxtIndex++;
 		}
 		if (beh.yawn)
 		{
 			cv::putText(img,behaviorStr[1], 
-						cv::Point(txtX,txtY), 
+						cv::Point(txtX,TxtY+drawTxtIndex*30), 
 						cv::FONT_HERSHEY_PLAIN, 
 						2.0, 
 						cv::Scalar(0,0,255),
 						2);
-			return img;
+			drawTxtIndex++;
 		}
 		if (beh.phone)
 		{
 			cv::Rect phone = HBDetector->getPhoneBox();// 获取body区域的外框
 			cv::rectangle(img, phone, cv::Scalar(0,255,0), 1, 1, 0); // 绘制身体框
 			cv::putText(img,behaviorStr[1], 
-						cv::Point(txtX,txtY), 
+						cv::Point(txtX,TxtY+drawTxtIndex*30), 
 						cv::FONT_HERSHEY_PLAIN, 
 						2.0, 
 						cv::Scalar(0,0,255),
 						2);
-			return img;
+			drawTxtIndex++;
 		}
 		if (beh.smoke)
 		{
 			cv::putText(img,behaviorStr[1], 
-						cv::Point(txtX,txtY), 
+						cv::Point(txtX,TxtY+drawTxtIndex*30), 
 						cv::FONT_HERSHEY_PLAIN, 
 						2.0, 
 						cv::Scalar(0,0,255),
 						2);
-			return img;
+			drawTxtIndex++;
 		}
 	}
 	return img;
 }
+
+
 
 cv::Mat DetectorDriver::getLookLeftRightLabelImage(bool showLabelImage)
 {
