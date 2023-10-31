@@ -124,11 +124,10 @@ int main()
 									   confjson->getVideoHeight());
 	capture->init();
 	capture->startCapture([&](cv::Mat& detectimg){
-		// cv::Mat test = cv::imread("../img/smoke2.jpg");
-		detector.enqueueMat(detectimg);
+		cv::Mat test = cv::imread("../img/phone.jpg");
+		detector.enqueueMat(test);
+		// detector.enqueueMat(detectimg);
 	});
-
-	// detector.test_start();	// 测试用
 
 	// 向miniserver发送自己的版本号
 	std::thread sendVersionThread([&](){
@@ -164,33 +163,5 @@ int main()
 	{
 		usleep(60*1000*1000);
 	}
-    return 0;
-
-
-    // RockxDetector rockx;
-    // rockx.initFaceDetector();
-    // cv::Mat res = cv::imread("../img/test.jpg");
-    // rockx_image_t input = rockx.input("../img/test.jpg");
-    // rockx.faceDetect(input);
-
-    // faceAngle angle;
-    // vector<landmark> landmarks;
-    // faceBox box;
-    // rockx.getResults(angle, landmarks, box);
-
-    // int count = 0;
-    // for (auto it = landmarks.begin(); it != landmarks.end(); it++)
-    // {
-    //     // 定义点的位置
-    //     cv::Point land(it->x, it->y);
-
-    //     // 绘制一个红色的点
-    //     cv::circle(res, land, 2, cv::Scalar(0, 0, 255), -1);
-    //     cv::putText(res, to_string(count), land, cv::FONT_HERSHEY_SIMPLEX, 0.4, cv::Scalar(255, 0, 255),1, 8, false);
-    //     count++;
-    // }
-    // cv::imwrite("../img/res.jpg",res);
-
-    // // rockx.destoryDetector();
     return 0;
 }

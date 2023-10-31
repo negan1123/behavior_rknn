@@ -38,8 +38,6 @@ int DetectorDriver::detect()
 	beh = {false,false,false,false,false,false};
 
 	int ret = 0;
-	int64_t start,end;
-	start = util::curentTimeMillis();
 	// blockCamera opencv检测
 	cout<<"blockCamera opencv检测"<<endl;
 	ret = BlockCamera->input(detectImg);
@@ -152,8 +150,7 @@ int DetectorDriver::detect()
 		}
 
 	}
-	end = util::curentTimeMillis();
-	spdlog::info("dbdetector elapse = {}", end-start);
+
 	return 0;
 }
 
@@ -231,8 +228,8 @@ cv::Mat DetectorDriver::getLabelImage(bool showLabelImage)
 		}
 		if (beh.yawn)
 		{
-			cv::putText(img,behaviorStr[1], 
-						cv::Point(txtX,TxtY+drawTxtIndex*30), 
+			cv::putText(img,behaviorStr[2], 
+						cv::Point(txtX,txtY+drawTxtIndex*30), 
 						cv::FONT_HERSHEY_PLAIN, 
 						2.0, 
 						cv::Scalar(0,0,255),
@@ -243,8 +240,8 @@ cv::Mat DetectorDriver::getLabelImage(bool showLabelImage)
 		{
 			cv::Rect phone = HBDetector->getPhoneBox();// 获取body区域的外框
 			cv::rectangle(img, phone, cv::Scalar(0,255,0), 1, 1, 0); // 绘制身体框
-			cv::putText(img,behaviorStr[1], 
-						cv::Point(txtX,TxtY+drawTxtIndex*30), 
+			cv::putText(img,behaviorStr[0], 
+						cv::Point(txtX,txtY+drawTxtIndex*30), 
 						cv::FONT_HERSHEY_PLAIN, 
 						2.0, 
 						cv::Scalar(0,0,255),
@@ -253,8 +250,8 @@ cv::Mat DetectorDriver::getLabelImage(bool showLabelImage)
 		}
 		if (beh.smoke)
 		{
-			cv::putText(img,behaviorStr[1], 
-						cv::Point(txtX,TxtY+drawTxtIndex*30), 
+			cv::putText(img,behaviorStr[6], 
+						cv::Point(txtX,txtY+drawTxtIndex*30), 
 						cv::FONT_HERSHEY_PLAIN, 
 						2.0, 
 						cv::Scalar(0,0,255),

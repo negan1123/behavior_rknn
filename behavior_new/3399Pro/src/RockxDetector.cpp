@@ -1,6 +1,6 @@
 #include <RockxDetector.h>
 
-#define test 0
+#define test 1
 
 RockxDetector::RockxDetector()
 {   

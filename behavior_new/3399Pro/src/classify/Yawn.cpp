@@ -16,6 +16,7 @@ void Yawn::inference(const time_t& time, const cv::Mat& img)
     count += 1;
     if (count < interval)
     {
+        cout<<"-->>>>>>>>>没到检测时间段"<<endl;
         return;
     }
 

@@ -597,8 +597,9 @@ void UploadBehavior::sendBehaviorVideo()
 	time_t time;
 	int	   behavier;
 
+	// 从队列里面获取要发送的视频名称
 	mtxVideo.lock();
-	// 从队列里面获取要发送的图片名称
+	std::cout<<"behaviorVideoQueue size:"<<behaviorVideoQueue.size()<<std::endl;
 	if(behaviorVideoQueue.empty())
 	{
 		mtxVideo.unlock();
@@ -615,14 +616,14 @@ void UploadBehavior::sendBehaviorVideo()
 	{
 		filename = front;
 	}
-	// 队列里面的图片名词格式  前面是时间，后面是行为 34324424_3445.jpg
-	// 解析时间，行为和图片后缀
+	// 队列里面的视频名词格式  前面是时间，后面是行为 34324424_3445.mp4
+	// 解析时间，行为和视频后缀
 	std::string::size_type sz;
 	sz = filename.find("_");
 	time = std::stoi(filename.substr(0,sz));
 	behavier = std::stoi(filename.substr(sz+1));
 
-	// 读取图片数据
+	// 读取视频数据
 	std::ifstream is (front.c_str(), std::ifstream::binary);
 	if (is) {
 		// get length of file:
@@ -635,9 +636,9 @@ void UploadBehavior::sendBehaviorVideo()
 		{
 			mtxVideo.lock();
 			behaviorVideoQueue.pop();
-			mtxVideo.unlock();
 			remove(front.c_str());
 			is.close();
+			mtxVideo.unlock();
 			return;
 		}
 		char * buffer = new char [length];
@@ -651,8 +652,8 @@ void UploadBehavior::sendBehaviorVideo()
 		{
 			mtxVideo.lock();
 			behaviorVideoQueue.pop();
-			mtxVideo.unlock();
 			remove(front.c_str());
+			mtxVideo.unlock();
 		}
 	}
 	else

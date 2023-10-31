@@ -9,7 +9,7 @@ inline vector<float> softmax(const std::vector<float>& input) {
     std::vector<float> result;
     float sum = 0.0;
 
-    for (int val : input) {
+    for (float val : input) {
         result.push_back(std::exp(val));
         sum += std::exp(val);
     }
@@ -24,8 +24,8 @@ inline vector<float> softmax(const std::vector<float>& input) {
 
 HeadBehaviorDetector::HeadBehaviorDetector()
 {	
-	preProcessImageW = 320;
-	preProcessImageH = 320;
+	preProcessImageW = 224;
+	preProcessImageH = 224;
 	// 以下路径后续可配置为json
     string rknn_model_path = RetinaDriverConf::Instance()->smoke_rknnPath;
 
@@ -60,8 +60,9 @@ int HeadBehaviorDetector::imgPreprocess()
     int min = (input_w < input_h) ? input_w : input_h;
     cv::Rect rect((input_w-min)/2, (input_h-min)/2, min, min);
     cv::Mat resimg = inputImg(rect);
-    cv::resize(resimg, preProcessImage, cv::Size(preProcessImageW, preProcessImageH));
-    cv::cvtColor(preProcessImage, preProcessImage, cv::COLOR_BGR2RGB);
+    cv::resize(resimg, resimg, cv::Size(preProcessImageW, preProcessImageH));
+    cv::cvtColor(resimg, preProcessImage, cv::COLOR_BGR2RGB);
+    cv::imwrite("../img/smoke_input.jpg",preProcessImage);
     return 0;
 }
 
@@ -133,7 +134,7 @@ int HeadBehaviorDetector::detect()
     }
     outData.clear();
 
-    // // 保存输出
+    // 保存输出
     for (int i = 0; i < io_num.n_output; i++)
     {   
         float *buf = new float[outputs[i].size];
@@ -157,22 +158,19 @@ int HeadBehaviorDetector::getResults()
         return -1;
     }
 
-    // 取出outData中的数据指针
-    for (int i = 0; i < outData.size(); i++)
-    {   
-        float *out = ((float *)outData[i]); // 逐个取出outData中的数据
+    float *out = ((float *)outData[0]); // 逐个取出outData中的数据
 
-        vector<float> softmax_input; // softmax函数输入
-        while(*out != 0)
-        {
-            softmax_input.push_back(*out);
-            out++;
-        }
+    vector<float> softmax_input; // softmax函数输入
+    for (int i = 0; i < 2; i++)
+    {
+        cout<<"smoke_cls:"<<*out<<endl;
+        softmax_input.push_back(*out);
+        out++;
+    }
 
         vector<float> softmax_output = softmax(softmax_input);
-        res.positive_score = softmax_output[0];
-        res.smoke_score = softmax_output[1];
-    }
+        res.positive_score = std::round(softmax_output[0]);
+        res.smoke_score = std::round(softmax_output[1]);
     spdlog::debug("Smoke_CLS:[positive: {}, smoke: {}]",res.positive_score, res.smoke_score);
 
     return 0;

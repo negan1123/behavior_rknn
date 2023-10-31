@@ -180,8 +180,7 @@ int HeadBodyDetector::imgPreprocess()
 	}
 	// 通道转换
 	cv::cvtColor(resimg, preProcessImage, cv::COLOR_BGR2RGB);
-
-	
+	cv::imwrite("../img/hbpre.jpg",preProcessImage);
 	return 0;
 }
 
@@ -421,10 +420,10 @@ cv::Rect HeadBodyDetector::getHeadBox()
 {	
 	cv::Rect ret(0,0,0,0);
 
-	float x1 = HeadMax.x - 10;
-	float y1 = HeadMax.y - 10;
-	float x2 = HeadMax.w + 10;
-	float y2 = HeadMax.h + 10;
+	float x1 = HeadMax.x-10;
+	float y1 = HeadMax.y-10;
+	float x2 = HeadMax.w+10;
+	float y2 = HeadMax.h+20;
 
 	if (HeadMax.score > HeadThres)
 	{

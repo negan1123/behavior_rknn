@@ -78,7 +78,12 @@ int H264ToMp4::CreateMp4(AVStream *in_stream)
 
     if (m_pVideoSt)
     {
-    	 ret = avcodec_parameters_copy(m_pVideoSt->codecpar, in_stream->codecpar);
+    	ret = avcodec_parameters_copy(m_pVideoSt->codecpar, in_stream->codecpar);
+        if (m_pVideoSt->codecpar->width == 0)
+        {
+            m_pVideoSt->codecpar->width = 1280;
+            m_pVideoSt->codecpar->height = 720;
+        }
     }
 
     av_dump_format(m_pOc, 0, mMp4Name.c_str(), 1);
