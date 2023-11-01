@@ -599,7 +599,6 @@ void UploadBehavior::sendBehaviorVideo()
 
 	// 从队列里面获取要发送的视频名称
 	mtxVideo.lock();
-	std::cout<<"behaviorVideoQueue size:"<<behaviorVideoQueue.size()<<std::endl;
 	if(behaviorVideoQueue.empty())
 	{
 		mtxVideo.unlock();
