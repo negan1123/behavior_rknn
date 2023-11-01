@@ -124,9 +124,9 @@ int main()
 									   confjson->getVideoHeight());
 	capture->init();
 	capture->startCapture([&](cv::Mat& detectimg){
-		cv::Mat test = cv::imread("../img/phone.jpg");
-		detector.enqueueMat(test);
-		// detector.enqueueMat(detectimg);
+		// cv::Mat test = cv::imread("../img/phone.jpg");
+		// detector.enqueueMat(test);
+		detector.enqueueMat(detectimg);
 	});
 
 	// 向miniserver发送自己的版本号
