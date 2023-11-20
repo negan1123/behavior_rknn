@@ -24,8 +24,8 @@ inline vector<float> softmax(const std::vector<float>& input) {
 
 HeadBehaviorDetector::HeadBehaviorDetector()
 {	
-	preProcessImageW = 224;
-	preProcessImageH = 224;
+	preProcessImageW = 320;
+	preProcessImageH = 320;
 	// 以下路径后续可配置为json
     string rknn_model_path = RetinaDriverConf::Instance()->smoke_rknnPath;
 
@@ -62,7 +62,7 @@ int HeadBehaviorDetector::imgPreprocess()
     cv::Mat resimg = inputImg(rect);
     cv::resize(resimg, resimg, cv::Size(preProcessImageW, preProcessImageH));
     cv::cvtColor(resimg, preProcessImage, cv::COLOR_BGR2RGB);
-    cv::imwrite("../img/smoke_input.jpg",preProcessImage);
+    // cv::imwrite("../img/smoke_input.jpg",preProcessImage);
     return 0;
 }
 

@@ -180,7 +180,7 @@ int HeadBodyDetector::imgPreprocess()
 	}
 	// 通道转换
 	cv::cvtColor(resimg, preProcessImage, cv::COLOR_BGR2RGB);
-	cv::imwrite("../img/hbpre.jpg",preProcessImage);
+	// cv::imwrite("../img/hbpre.jpg",preProcessImage);
 	return 0;
 }
 

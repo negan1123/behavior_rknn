@@ -177,7 +177,7 @@ void DetectorService::start()
 							mLookStraight->inference(t, LS, y, p);
 						}
 					}
-					if (!classify.empty())
+					// if (!classify.empty())
 						// cv::imwrite("../img/classify.jpg",classify);
 				}
 				end = util::curentTimeMillis();
