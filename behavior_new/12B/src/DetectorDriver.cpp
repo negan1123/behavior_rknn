@@ -109,6 +109,7 @@ int DetectorDriver::detect()
 			if(0 != ret)
 			{
 				cout<<"FBDetector input fail! ret="<<ret<<endl;
+				return ret;
 			}
 			ret = FBDetector->faceDetect();		// rockx推理
 			remove(rockx_input.data());
@@ -116,6 +117,7 @@ int DetectorDriver::detect()
 			if(0 != ret)
 			{
 				cout<<"FBDetector detect fail! ret="<<ret<<endl;
+				return ret;
 			}
 
 			faceAngle angle;				// 人脸欧拉角
