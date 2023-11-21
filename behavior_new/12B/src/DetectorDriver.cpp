@@ -101,9 +101,14 @@ int DetectorDriver::detect()
 				beh.smoke = true;
 			}
 			
+		}
+
+		if (!BodyImg.empty())
+		{
+			cout<<"--> 身体行为检测"<<endl;
 			string rockx_input = BehaviorConf::Instance()->getPicVideoPath();
 			rockx_input = rockx_input + "/forRockX.jpg";
-			cv::imwrite(rockx_input, detectImg);
+			cv::imwrite(rockx_input, BodyImg);
 			// 进行头部行为识别，包括闭眼，打呵欠，左顾右盼，使用rockx人脸关键点
 			ret = FBDetector->input(rockx_input);	// rockx图片输入
 			if(0 != ret)
@@ -138,11 +143,8 @@ int DetectorDriver::detect()
 			{
 				beh.yawn = true;
 			}
-		}
 
-		if (!BodyImg.empty())
-		{
-			cout<<"--> 身体行为检测"<<endl;
+
 			// 进行身体识别，检测手机
 			ret = HBDetector->getBodyBehavior();
 			if(ret == 1)
@@ -175,10 +177,10 @@ int DetectorDriver::getBehaviorInt()
 	{
 		ret += (1 << 1);
 	}
-	if(beh.smoke)
-	{
-		ret += (1 << 2);
-	}
+	// if(beh.smoke)
+	// {
+	// 	ret += (1 << 2);
+	// }
 	if(beh.phone)
 	{
 		ret += (1 << 3);
