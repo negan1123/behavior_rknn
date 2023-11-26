@@ -142,7 +142,6 @@ public:
 
 			//获取检测行为的速度阈值
 			getJsonInfo(speed, "thresholdOne", thresholdOne);
-			getJsonInfo(speed, "thresholdTwo", thresholdTwo);
 
 		}
 		catch(...)
@@ -245,7 +244,6 @@ public:
 			behavior["blockcamera"] = blockcamera;
 
 			speed["thresholdOne"] = thresholdOne;
-			speed["thresholdTwo"] = thresholdTwo;
 
 			jInfo["server"] = server;
 			jInfo["video"] = video;
@@ -326,9 +324,9 @@ public:
 	*/
 	int  isSaveDetectVideo() const {return SAVE_DETECT_VIDEO;}
 
-	/**@brief 获取检测到驾驶员行为录像保存的时间
+	/**@brief 获取保存视频时长(秒)
 	* @param	None
-	* @return	int		是否保存检测后的照片
+	* @return	int		保存视频时长(秒)
 	*/
 	int  getVideoDuration() const {return videoDuration;}
 
@@ -445,15 +443,15 @@ public:
 	*/
 	int getBCDuration() const {return BC_DURATION;}
 
-	/**@brief 获取遮挡摄像头行为单次预警需要检测出违规行为的次数
+	/**@brief 获取遮挡判定阈值，若未遮挡像素点小于thres阈值，则判定为遮挡
 	* @param	None
-	* @return	int		遮挡摄像头行为单次预警需要检测出违规行为的次数
+	* @return	int		遮挡判定阈值，若未遮挡像素点小于thres阈值，则判定为遮挡
 	*/
 	int getUnblockNum() const {return UNBLOCKNUM;}
 
-	/**@brief 获取遮挡摄像头行为单次预警需要检测出违规行为的次数
+	/**@brief 获取遮挡块数量阈值，图片分为左上、左下、右上、右下四个部分，若大于阈值则判定为遮挡行为
 	* @param	None
-	* @return	int		遮挡摄像头行为单次预警需要检测出违规行为的次数
+	* @return	int		遮挡块数量阈值，图片分为左上、左下、右上、右下四个部分，若大于阈值则判定为遮挡行为
 	*/
 	int getBlockPartNum() const {return BLOCKPARTNUM;}
 
@@ -492,12 +490,6 @@ public:
 	* @return	int	速度阈值1
 	*/
 	int getThresholdOne() const {return thresholdOne;}
-
-	/**@brief 获取速度阈值2
-	* @param	None
-	* @return	int	速度阈值2
-	*/
-	int getThresholdTwo() const {return thresholdTwo;}
 
 	/**@brief 设置服务器地址
 	* @param	host	服务器地址
@@ -685,12 +677,6 @@ public:
 	*/
 	void setThresholdOne(int threshold) {thresholdOne = threshold;}
 
-	/**@brief 设置速度阈值2
-	* @param	threshold	速度阈值
-	* @return	None
-	*/
-	void setThresholdTwo(int threshold) {thresholdTwo = threshold;}
-
 private:
 	/**@brief 构造函数
 	* @param[in]		path	json配置文件路径
@@ -743,7 +729,5 @@ private:
 	bool saveDecodeImg;						///< 是否保存解码后的图像
 	std::string decodeImgPath;				///< 解码后的图像保存路径
 	int thresholdOne;						///< 速度阈值1，大于此值才检测闭眼
-	int thresholdTwo;						///< 速度阈值2，大于此值才检测长时间直视与左顾右盼
-
 };
 #endif /* BEHAVIORCONF_HPP_ */

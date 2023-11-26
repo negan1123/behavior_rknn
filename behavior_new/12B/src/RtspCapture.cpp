@@ -155,6 +155,8 @@ int RtspCapture::startCapture(std::function<void(cv::Mat& pic)> f)
 		decoding = true;
 		cv::Mat rgbImage(height, width, CV_8UC3);
 		int readerrcount = 0;
+		int isSaveDecodeImg = BehaviorConf::Instance()->isSaveDecodeImg();
+		string saveDecodeImgPath = BehaviorConf::Instance()->getDecodeImgPath() + "/decodeImg.jpg";
 		while(decoding)
 		{
 			if(!isInited)
@@ -175,7 +177,7 @@ int RtspCapture::startCapture(std::function<void(cv::Mat& pic)> f)
 					// 保存录像，用于记录驾驶行为相关的视频
 					RtspVideoCircleRecorder::Instance()->writeH264Frame((const char *)packet.data, packet.size);
 					//判断是否包含关键帧，最低为1表示该数据是一个关键帧
-					if((packet.flags & AV_PKT_FLAG_KEY) || !isDecodeIdr)
+					if((packet.flags & AV_PKT_FLAG_KEY) || isDecodeIdr)
 					{
 						if(isMppEnable)
 						{
@@ -217,7 +219,11 @@ int RtspCapture::startCapture(std::function<void(cv::Mat& pic)> f)
 								// 调用回调函数，让回调函数对解码后的数据进行处理
 								if(onCapFrame) {
 									rgbImage = cv::Mat(height, width, CV_8UC3, buffer);
-									// cv::imwrite("../rtspImg/test.jpg",rgbImage);
+									
+									if (isSaveDecodeImg)
+									{
+										cv::imwrite(saveDecodeImgPath,rgbImage);
+									}
 									onCapFrame(rgbImage);
 								}
 							}else {

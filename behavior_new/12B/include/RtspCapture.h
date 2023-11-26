@@ -26,6 +26,7 @@ extern "C"
 
 #include <unistd.h>
 #include <RtspVideoCircleRecorder.h>
+#include <BehaviorConf.hpp>
 
 
 using namespace std;

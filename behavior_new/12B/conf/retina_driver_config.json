@@ -1,43 +1,15 @@
-{
-	"retinatk":
-	{
-		"rknn_path":"../model/RetinaTK_rv1126.rknn",
-		"priors_path":"../model/priors.bin",
-		"variance":"0.1,0.2",
-		"mean":"104,117,123",
-		"conf_thresh":"0.01"
-	},
-	"driver_behavior":
-	{
-		"rknn_path":"../model/resnet18_none_220216.rknn",
-		"mean":"0.485,0.456,0.406",
-		"stdvalue":"0.229,0.224,0.225"
-	},
-	"head_behavior":
-	{
-		"rknn_path":"../model/model_head_rv1126.rknn"
-	},
-	"body_behavior":
-	{
-		"rknn_path":"../model/model_body_rv1126.rknn"
-	},
-	
+{	
 	"body_head":
 	{
-		"rknn_path":"../models/face_body_phone_v5.rknn",
-		"anchors_path":"../models/anchors-yolov5.txt",
+		"rknn_path":"../model/face_body_phone_v5.rknn",
+		"anchors_path":"../model/anchors-yolov5.txt",
 		"body_thresh": 0.5,
 		"head_thresh": 0.5
 	},
-	"phone":
-	{
-		"rknn_path":"../models/yolov5_face_phone.rknn",
-		"anchors_path":"../models/anchors-yolov5.txt",
-		"phone_thresh": 0.8
-	},
+
 	"smoke_cls":
 	{
-		"rknn_path":"../models/smoke_cls_v8.rknn"
+		"rknn_path":"../model/smoke_cls_v8.rknn"
 	}
 
 }

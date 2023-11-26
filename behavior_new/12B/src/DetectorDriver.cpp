@@ -144,7 +144,6 @@ int DetectorDriver::detect()
 				beh.yawn = true;
 			}
 
-
 			// 进行身体识别，检测手机
 			ret = HBDetector->getBodyBehavior();
 			if(ret == 1)
