@@ -30,20 +30,6 @@ HeadBehaviorDetector::HeadBehaviorDetector()
     string rknn_model_path = RetinaDriverConf::Instance()->smoke_rknnPath;
 
 	initModel(rknn_model_path);
-
-	rknn_sdk_version version;
-	int ret =0;
-	ret = rknn_query(ctx, RKNN_QUERY_SDK_VERSION, &version, sizeof(rknn_sdk_version));
-	if(ret != 0){
-		std::cout << "获取版本失败" << std::endl;
-	}
-	else
-	{
-		for(int i=0; i<5; ++i){
-			apiVersion.push_back(version.api_version[i]);
-			drvVersion.push_back(version.drv_version[i]);
-		}
-	}
 }
 
 HeadBehaviorDetector::~HeadBehaviorDetector()

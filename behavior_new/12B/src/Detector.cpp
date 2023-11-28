@@ -80,6 +80,15 @@ int Detector::deInitModel()
 void Detector::showModelInfo()
 {
 	int ret = 0;
+	// 查询rknn sdk和驱动版本
+	rknn_sdk_version version;
+	ret = rknn_query(ctx, RKNN_QUERY_SDK_VERSION, &version, sizeof(rknn_sdk_version));
+	if(ret != 0){
+		std::cout << "获取版本失败" << std::endl;
+	}
+	apiVersion = version.api_version;
+	drvVersion = version.drv_version;
+	printf("sdk version: %s driver version: %s\n", apiVersion, drvVersion);
 
 	rknn_input_output_num io_num;//input 和 output 的 Tensor 个数
     ret = rknn_query(ctx, RKNN_QUERY_IN_OUT_NUM, &io_num, sizeof(io_num));
@@ -157,4 +166,14 @@ int Detector::input(cv::Mat &image)
 	inputImg = image.clone();
 	imgPreprocess();
 	return 0;
+}
+
+std::string Detector::getRknnApiVer()
+{
+	return apiVersion;
+}
+
+std::string Detector::getRknnDrvVer()
+{
+	return drvVersion;
 }

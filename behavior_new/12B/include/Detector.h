@@ -44,6 +44,10 @@ public:
 
     int input(cv::Mat &image);
 
+    std::string getRknnApiVer();
+
+    std::string getRknnDrvVer();
+
     virtual int imgPreprocess()=0;
 
     virtual int detect()=0;
@@ -55,6 +59,9 @@ protected:
     vector<void*> outData;	    // 运行模型后输出结果
     cv::Mat inputImg;           // 输入的图片
     float rescale_ratio{1.0};	///< 预处理图片压缩比例
+
+    string apiVersion;      // rknn api版本
+    string drvVersion;      // rknn drv版本
 
 private:
     unsigned char *model;       // rknn模型数据指针

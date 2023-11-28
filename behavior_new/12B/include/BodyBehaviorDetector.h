@@ -56,19 +56,6 @@ public:
      */
     cv::Rect getPhoneBox();
 
-    /**
-     * @brief 获取 rknn api 版本
-     * @return 返回 rknn api 版本
-     */
-    string getRknnApiVer();
-
-    /**
-     * @brief 获取 rknn drv 版本
-     * @return 返回 rknn drv 版本
-     */
-    string getRknnDrvVer();
-
-
 private:
 
 
@@ -86,8 +73,7 @@ private:
     ClassInfo PhoneMax;                      // 手机最优解
 
     float PhoneThres;                    // 手机检测阈值
-    string apiVersion;      // rknn api版本
-    string drvVersion;      // rknn drv版本
+
 
     /**
      * @brief 加载anchors.txt文件

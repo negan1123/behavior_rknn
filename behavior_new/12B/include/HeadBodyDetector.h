@@ -62,20 +62,7 @@ public:
 
     cv::Mat getHeadImage();
     cv::Mat getBodyImage();
-
-    /**
-     * @brief 获取 rknn api 版本
-     * @return 返回 rknn api 版本
-     */
-    string getRknnApiVer();
-
-    /**
-     * @brief 获取 rknn drv 版本
-     * @return 返回 rknn drv 版本
-     */
-    string getRknnDrvVer();
-
-
+    
 private:
     cv::Mat preProcessImage;	// 预处理后的图片
     float preProcessImageW;		// 预处理后的图片宽度
@@ -100,9 +87,6 @@ private:
 
     cv::Mat HeadImage;      // 头部图片
     cv::Mat BodyImage;      // 身体图片
-
-    string apiVersion;      // rknn api版本
-    string drvVersion;      // rknn drv版本
 
     /**
      * @brief 加载anchors.txt文件

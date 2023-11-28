@@ -105,19 +105,7 @@ HeadBodyDetector::HeadBodyDetector()
 	loadAnchors(filePath);
 	initModel(rknn_model_path);
 
-	rknn_sdk_version version;
-	int ret =0;
-	ret = rknn_query(ctx, RKNN_QUERY_SDK_VERSION, &version, sizeof(rknn_sdk_version));
-	if(ret != 0){
-		std::cout << "获取版本失败" << std::endl;
-	}
-	else
-	{
-		for(int i=0; i<5; ++i){
-			apiVersion.push_back(version.api_version[i]);
-			drvVersion.push_back(version.drv_version[i]);
-		}
-	}
+
 }
 
 HeadBodyDetector::~HeadBodyDetector()
@@ -537,16 +525,4 @@ int HeadBodyDetector::getBodyBehavior()
 		return 1;
 	}
 	return 0;
-}
-
-
-
-std::string HeadBodyDetector::getRknnApiVer()
-{
-	return apiVersion;
-}
-
-std::string HeadBodyDetector::getRknnDrvVer()
-{
-	return drvVersion;
 }

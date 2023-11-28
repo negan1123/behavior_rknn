@@ -1,6 +1,6 @@
 #ifndef _VERSIONCONFIG_H_
 #define _VERSIONCONFIG_H_
-#define	BEHAVIOR_VERSION		("3.2.6")	//驾驶员行为识别软件版本
+#define	BEHAVIOR_VERSION		("3.3.0")	//驾驶员行为识别软件版本
 #define	MINISERVER_VERSION		("3.0.0")	//miniserver软件版本
 #define	HPLOCATOR_VERSION		("3.0.0")	//高进度定位软件版本
 #define	PUSHSTREAM_VERSION		("3.0.0")	//推流软件版本
