@@ -89,11 +89,11 @@ void Detector::showModelInfo()
 	else
 	{
 		for(int i=0; i<5; ++i){
-			apiVersion.push_back(version.api_version[i]);
+			apiVersion.push_back(version.api_version[24+i]);
 			drvVersion.push_back(version.drv_version[i]);
 		}
 	}
-	printf("sdk version: %s driver version: %s\n", apiVersion, drvVersion);
+	cout<<"rknn_sdk: "<<apiVersion<<"; rknn_driver: "<<drvVersion<<endl;
 
 	rknn_input_output_num io_num;//input 和 output 的 Tensor 个数
     ret = rknn_query(ctx, RKNN_QUERY_IN_OUT_NUM, &io_num, sizeof(io_num));
