@@ -7,7 +7,6 @@
 
 #include <util/commons.h>
 #include <HeadBodyDetector.h>
-#include <BodyBehaviorDetector.h>
 #include <RockxDetector.h>
 #include <BlockCameraDetector.h>
 #include <HeadBehaviorDetector.h>
@@ -82,7 +81,6 @@ public:
 
 private:
     unique_ptr<HeadBodyDetector> HBDetector;  // 头部身体分割
-    unique_ptr<BodyBehaviorDetector> BBDetector;  // 身体行为检测
     unique_ptr<BlockCameraDetector> BlockCamera;  // 指向遮挡摄像头检测器的指针
     unique_ptr<RockxDetector> FBDetector;           // 头部行为检测
     unique_ptr<HeadBehaviorDetector> SmokeDetector;           // 头部行为检测

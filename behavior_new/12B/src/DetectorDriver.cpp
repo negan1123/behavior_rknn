@@ -7,7 +7,6 @@ DetectorDriver::DetectorDriver()
 	// 必须先加载conf, 后面的实例构造的时候会用到配置参数
 	loadConfig();
     HBDetector = make_unique<HeadBodyDetector>();
-	// BBDetector = make_unique<BodyBehaviorDetector>();
 	FBDetector = make_unique<RockxDetector>();
 	BlockCamera = make_unique<BlockCameraDetector>();
 	SmokeDetector = make_unique<HeadBehaviorDetector>();
