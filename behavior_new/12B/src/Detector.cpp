@@ -86,8 +86,13 @@ void Detector::showModelInfo()
 	if(ret != 0){
 		std::cout << "获取版本失败" << std::endl;
 	}
-	apiVersion = version.api_version;
-	drvVersion = version.drv_version;
+	else
+	{
+		for(int i=0; i<5; ++i){
+			apiVersion.push_back(version.api_version[i]);
+			drvVersion.push_back(version.drv_version[i]);
+		}
+	}
 	printf("sdk version: %s driver version: %s\n", apiVersion, drvVersion);
 
 	rknn_input_output_num io_num;//input 和 output 的 Tensor 个数
