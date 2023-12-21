@@ -253,7 +253,7 @@ public:
 		}
 		catch(...)
 		{
-			std::cerr << "save global.json file err" << std::endl;
+			std::cerr << "save behavior.json file err" << std::endl;
 			return -1;
 		}
 	}
